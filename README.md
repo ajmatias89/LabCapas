@@ -91,9 +91,13 @@ frmLogin
 <img width="598" height="410" alt="image" src="https://github.com/user-attachments/assets/420ea3fd-1833-4c3c-a193-3caa0730e661" />
 
 
+
+
 frmLogin al ingresar credenciales incorrectas
 
 <img width="600" height="402" alt="image" src="https://github.com/user-attachments/assets/50897a76-1165-4cb5-9690-70445784a723" />
+
+
 
 
 frmPrincipal al ingresar correctamente
@@ -101,9 +105,13 @@ frmPrincipal al ingresar correctamente
 <img width="1915" height="1007" alt="image" src="https://github.com/user-attachments/assets/848599c0-651c-46b4-8a74-94bd8a4ceb8f" />
 
 
+
+
 frmProductos al ingresar a la sección Productos del frmPrincipal
 
 <img width="742" height="455" alt="image" src="https://github.com/user-attachments/assets/ec891a4f-fc7e-4a61-a3ac-8699734b1755" />
+
+
 
 
 frmPrincipal con pestaña oculta
