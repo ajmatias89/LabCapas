@@ -10,14 +10,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
+using MetroFramework;
+using FontAwesome.Sharp;
+using Presentacion.MVP;
 
 namespace Presentacion
 {
-    public partial class Form1 : Form
+    public partial class frmLogin : MetroForm, ILoginView
     {
-        public Form1()
+
+        private readonly LoginPresenter presenter;
+
+        public string Usuario
+        {
+            get { return txtUsuario.Text.Trim(); }
+        }
+
+        public string Password
+        {
+            get { return txtPassword.Text; }
+        }
+
+        public void MostrarError(string mensaje)
+        {
+            MetroMessageBox.Show(this, mensaje, "Error de Login",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public void MostrarLoginExitoso(E_Usuario usuario)
+        {
+            if (usuario == null || usuario.id <= 0)
+            {
+                MostrarError("Usuario o contraseña incorrectos.");
+                return;
+            }
+
+            this.Hide();
+
+            frmPrincipal frm = new frmPrincipal();
+            frm.SESION_USUARIO = usuario;
+            frm.Show();
+        }
+
+        public frmLogin()
         {
             InitializeComponent();
+            CargarIconos();
+            presenter = new LoginPresenter(this);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -27,25 +67,44 @@ namespace Presentacion
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            string strUsuario = txtUsuario.Text;
-            string strPassword = txtPassword.Text;
-            E_Usuario usuario = N_Usuario.Login(strUsuario, strPassword);
-
-            if (usuario != null && usuario.id > 0)
-            {
-                MessageBox.Show("Bienvenido, " + usuario.dsUsuario + "!", "Login Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Hide();
-
-            }
-            else
-            {
-                MessageBox.Show("Usuario o contraseña incorrectos.", "Error de Login", MessageBoxButtons.OK, MessageBoxIcon.Error); 
-            }
+            presenter.IniciarSesion();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtUsuario_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CargarIconos()
+        {
+            var imgUsuario = IconChar.User.ToBitmap(Color.DodgerBlue, 28);
+            var imgPassword = IconChar.Lock.ToBitmap(Color.DodgerBlue, 28);
+            
+            txtUsuario.Icon = imgUsuario;
+            txtPassword.Icon = imgPassword;
+        
+        }
+
+        private bool ValidarUsuario()
+        {
+            if (string.IsNullOrEmpty(txtUsuario.Text.Trim())) 
+            {
+                MetroMessageBox.Show(this, "Ingrese Usuario", "Error de Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUsuario.Focus();
+                return false; 
+            }
+            if (string.IsNullOrEmpty(txtPassword.Text.Trim()))
+            {
+                MetroMessageBox.Show(this, "Ingrese Password", "Error de Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPassword.Focus();
+                return false;
+            }
+            return true;
         }
     }
 }
