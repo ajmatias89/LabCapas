@@ -5,8 +5,8 @@
 **Asignatura:** Herramientas de la Programación Aplicada III (.NET)  
 **Grupo:** 1IL133  
 **Docente:** Ing. Irina Fong  
-**Autora:** Aimee Matías  
-**Fecha:** 6 de noviembre de 2026
+**Autora:** Aimee Matias  
+**Fecha:** 9 de noviembre de 2026
 
 ## Descripción
 
@@ -29,15 +29,14 @@ El proyecto utiliza una base de datos MySQL denominada `productos`, autenticaci�
 | Tecnología | Uso | Versión / referencia |
 |---|---|---|
 | C# | Lenguaje de programación | Proyecto sobre .NET Framework |
-| .NET Framework | Plataforma de ejecución | **4.7.2** |
+| .NET Framework | Plataforma de ejecución 
 | Windows Forms | Interfaz de escritorio | Incluido en .NET Framework |
-| MetroModernUI / MetroFramework | Estilo de formularios y controles | **1.4.0.0** |
-| FontAwesome.Sharp | Íconos | **6.6.0** |
-| MySql.Data | Acceso a MySQL | **26.7.0** (paquete registrado en el proyecto) |
+| MetroModernUI / MetroFramework | Estilo de formularios y controles 
+| FontAwesome.Sharp | Íconos 
+| MySql.Data | Acceso a MySQL 
 | MySQL | Base de datos relacional | Versión del servidor por documentar |
 | Visual Studio | Entorno de desarrollo | Versión instalada por documentar |
 
-Las versiones de bibliotecas se tomaron de los archivos de proyecto y de NuGet del ZIP compartido.
 
 ## Arquitectura
 
@@ -54,28 +53,7 @@ LabCapas/
 └── README.md
 ```
 
-Los archivos de `MVP/` y los servicios de hash corresponden a los cambios realizados después del último ZIP compartido y deben estar incluidos en la versión final del repositorio.
 
-### Flujo de inicio de sesión con MVP
-
-```text
-frmLogin (Vista / ILoginView)
-             |
-             v
-LoginPresenter (Presentador)
-             |
-             v
-N_Usuario (Negocio)
-             |
-             v
-D_Usuario (Datos)
-             |
-             v
-MySQL: productos.sp_ValidarLoginHash
-             |
-             v
-frmPrincipal (sesión del usuario)
-```
 
 - **Vista:** obtiene las credenciales y presenta mensajes.
 - **Presentador:** valida campos, coordina la autenticación y comunica el resultado a la vista.
@@ -95,7 +73,6 @@ AND dsPassword = UNHEX(SHA2(_dsPassword, 512))
 
 La cuenta dedicada de MySQL debe disponer únicamente de los permisos necesarios para iniciar sesión, preferiblemente `EXECUTE` sobre el procedimiento específico cuando su configuración de seguridad lo permita. No se requieren permisos administrativos de MySQL para operar la aplicación.
 
-**Nota de seguridad:** la implementación del laboratorio utiliza SHA-512 sin sal individual por compatibilidad con la base existente. Para uso en producción se recomienda migrar a un algoritmo especializado en contraseñas, como Argon2id, bcrypt o PBKDF2, con una estrategia de migración de hashes. No publicar contraseñas, cadenas de conexión con secretos ni datos reales de usuarios.
 
 ## Interfaz y funcionalidades
 
@@ -106,15 +83,40 @@ La cuenta dedicada de MySQL debe disponer únicamente de los permisos necesarios
 - Usuario autenticado identificado en pantalla y en la parte inferior del menú lateral.
 - Controles para expandir/contraer el menú y administrar la ventana.
 
-### Captura de la interfaz principal
+### Capturas
 
-![Interfaz principal de LabCapas: menú lateral, reloj y usuario conectado](images/principal.png)
 
-*Pantalla de `frmPrincipal` que muestra el menú lateral, la hora y la sesión del usuario.*
+frmLogin
 
-### Capturas adicionales
+<img width="598" height="410" alt="image" src="https://github.com/user-attachments/assets/420ea3fd-1833-4c3c-a193-3caa0730e661" />
 
-Agregar aquí, si se desea documentar todas las validaciones, imágenes del formulario de inicio de sesión y de los mensajes por campos vacíos o credenciales incorrectas.
+
+frmLogin al ingresar credenciales incorrectas
+
+<img width="600" height="402" alt="image" src="https://github.com/user-attachments/assets/50897a76-1165-4cb5-9690-70445784a723" />
+
+
+frmPrincipal al ingresar correctamente
+
+<img width="1915" height="1007" alt="image" src="https://github.com/user-attachments/assets/848599c0-651c-46b4-8a74-94bd8a4ceb8f" />
+
+
+frmProductos al ingresar a la sección Productos del frmPrincipal
+
+<img width="742" height="455" alt="image" src="https://github.com/user-attachments/assets/ec891a4f-fc7e-4a61-a3ac-8699734b1755" />
+
+
+frmPrincipal con pestaña oculta
+
+<img width="822" height="403" alt="image" src="https://github.com/user-attachments/assets/cf6d97ee-b25a-49bf-a48d-e9ddda3f547a" />
+
+
+
+
+
+
+
+
 
 ## Requisitos para ejecutar
 
@@ -125,24 +127,8 @@ Agregar aquí, si se desea documentar todas las validaciones, imágenes del form
 - Base de datos `productos`, tabla `usuarios` y procedimiento `sp_ValidarLoginHash` configurados previamente.
 - Cuenta de MySQL exclusiva para la aplicación, con permisos mínimos.
 
-> El ZIP revisado **no incluye un script de creación y carga de la base de datos**. Para instalar el proyecto en otro equipo, debe proporcionarse por separado un script SQL seguro, sin contraseñas reales.
 
-## Instalación y ejecución
 
-1. Clonar el repositorio:
-
-   ```bash
-   git clone https://github.com/ajmatias89/LabCapas.git
-   ```
-
-2. Abrir `LabCapas.slnx` en Visual Studio.
-3. Restaurar los paquetes NuGet de la solución.
-4. Crear o importar el esquema MySQL `productos`, con la tabla `usuarios` y el procedimiento almacenado de autenticación.
-5. Crear un usuario MySQL dedicado con los privilegios mínimos requeridos.
-6. Configurar la cadena de conexión **localmente**, utilizando ese usuario, sin subir credenciales al repositorio. Si la versión del proyecto mantiene la cadena en `D_Conexion`, trasladar el secreto a una configuración local excluida de Git antes de publicar.
-7. Seleccionar **Presentacion** como proyecto de inicio.
-8. Compilar con **Build → Build Solution** y ejecutar con **F5**.
-9. Iniciar sesión con una cuenta de prueba previamente creada en la base de datos.
 
 ## Controles utilizados
 
@@ -157,24 +143,22 @@ Agregar aquí, si se desea documentar todas las validaciones, imágenes del form
 | `Timer` | Actualización del reloj cada segundo |
 | `MetroMessageBox` | Mensajes de validación |
 
-## Validaciones y pruebas manuales
 
-| Prueba | Resultado esperado |
-|---|---|
-| Usuario vacío o contraseña vacía | Mostrar mensaje de validación |
-| Credenciales incorrectas | No permitir acceso y mostrar error |
-| Credenciales válidas | Abrir `frmPrincipal` |
-| Inicio de sesión correcto | Mostrar el usuario conectado |
-| Aplicación abierta durante varios segundos | Actualizar el reloj automáticamente |
-| Uso del menú lateral | Permitir expandirlo o contraerlo |
-| Cuenta MySQL con permisos limitados | Permitir únicamente las operaciones autorizadas |
 
 ## Autoría
 
-**Aimee Matías**  
+**Aimee Matias**  
 Universidad Tecnológica de Panamá — Facultad de Ingeniería de Sistemas Computacionales  
 Herramientas de la Programación Aplicada III (.NET), grupo 1IL133  
-**Fecha:** noviembre de 2026.
+**Fecha:** 9 noviembre de 2026.
+
+
+## Fuentes 
+
+Videos de YouTube utilizados para el desarrollo 
+
+- https://www.youtube.com/watch?v=y1jftnTaTXU
+- https://www.youtube.com/watch?v=rX2AmgIqmy0&t=3171s
 
 ---
 
