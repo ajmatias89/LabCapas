@@ -5,7 +5,7 @@
 **Asignatura:** Herramientas de la Programación Aplicada III (.NET)  
 **Grupo:** 1IL133  
 **Docente:** Ing. Irina Fong  
-**Autora:** Aimee Matias  
+**Estudiante:** Aimee Matias  
 **Fecha:** 9 de noviembre de 2026
 
 ## Descripción
@@ -93,9 +93,12 @@ frmLogin
 
 
 
+
+
 frmLogin al ingresar credenciales incorrectas
 
 <img width="600" height="402" alt="image" src="https://github.com/user-attachments/assets/50897a76-1165-4cb5-9690-70445784a723" />
+
 
 
 
@@ -107,9 +110,13 @@ frmPrincipal al ingresar correctamente
 
 
 
+
+
 frmProductos al ingresar a la sección Productos del frmPrincipal
 
 <img width="742" height="455" alt="image" src="https://github.com/user-attachments/assets/ec891a4f-fc7e-4a61-a3ac-8699734b1755" />
+
+
 
 
 
@@ -122,18 +129,6 @@ frmPrincipal con pestaña oculta
 
 
 
-
-
-
-
-## Requisitos para ejecutar
-
-- Windows con **.NET Framework 4.7.2** disponible.
-- Visual Studio compatible con proyectos C# de .NET Framework y Windows Forms.
-- MySQL Server y MySQL Workbench (para administrar la base y sus permisos).
-- Paquetes NuGet restaurados según los archivos `packages.config`.
-- Base de datos `productos`, tabla `usuarios` y procedimiento `sp_ValidarLoginHash` configurados previamente.
-- Cuenta de MySQL exclusiva para la aplicación, con permisos mínimos.
 
 
 
